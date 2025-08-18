@@ -1,15 +1,17 @@
 import express from 'express';
 import Summary from '../models/Summary.js';
 import { generateSummary } from '../services/groqService.js';
+import { authmiddleware } from '../middleware/auth.js';
+
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', authmiddleware,async (req, res) => {
   try {
     const { transcript, prompt } = req.body;
 
     const summary = await generateSummary(transcript, prompt);
-    const doc = new Summary({ transcript, prompt, summary });
+    const doc = new Summary({ transcript, prompt, summary,userId :req.userId });
     await doc.save();
     return res.json({ summary });
   } catch (err) {
