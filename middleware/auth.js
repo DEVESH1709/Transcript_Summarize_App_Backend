@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export function authmiddleware(req,res,next){
-    const token = req.header("Authorization")?.replace("Bearer","");
+    const token = req.header("Authorization")?.replace("Bearer ","");
 
     if(!token) return res.status(400).json({error:"No token, auth denied"});
    

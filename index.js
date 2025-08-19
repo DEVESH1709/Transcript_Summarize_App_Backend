@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import summaryRouter from './routes/summarize.js';
 import emailRouter from './routes/email.js';
+import authRouter from './routes/auth.js';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use('/api/summarize', summaryRouter);
 app.use('/api/email', emailRouter);
+app.use('/api/auth', authRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

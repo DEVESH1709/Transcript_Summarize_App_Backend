@@ -11,7 +11,7 @@ router.post('/', authmiddleware,async (req, res) => {
     const { transcript, prompt } = req.body;
 
     const summary = await generateSummary(transcript, prompt);
-    const doc = new Summary({ transcript, prompt, summary,userId :req.userId }); 
+    const doc = new Summary({ transcript, prompt, summary,userId:req.user.id }); 
     await doc.save();
     return res.json({ summary });
   } catch (err) {
