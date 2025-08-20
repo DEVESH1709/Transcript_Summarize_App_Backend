@@ -20,4 +20,14 @@ router.post('/', authmiddleware,async (req, res) => {
   }
 });
 
+router.get("/", authmiddleware, async(req,res)=>{
+  try{
+    const summarize = await Summary.find({userId:req.user.id}).sort({createdAt:-1});
+    res.json(summarize);
+
+  }catch(err){
+    res.status(500).json({error:"Failed to fetch summaries"});
+  }
+});
+
 export default router;
