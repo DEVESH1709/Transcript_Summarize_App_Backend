@@ -6,7 +6,8 @@ const summarySchema = new mongoose.Schema({
   summary: String,
   userId: {type:mongoose.Schema.Types.ObjectId,ref:"User"},
   createdAt: { type: Date, default: Date.now },
-  emailSent: { type: Boolean, default: false }
+  emailSent: { type: Boolean, default: false },
+  pinned: { type: Boolean, default: false }
 });
 
 summarySchema.statics.markEmailSent = async function(summaryId) {

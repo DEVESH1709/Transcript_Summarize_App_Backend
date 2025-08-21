@@ -30,4 +30,18 @@ router.get("/", authmiddleware, async(req,res)=>{
   }
 });
 
+// Pin/unpin a summary
+router.post('/pin/:id', authmiddleware, async (req, res) => {
+  try {
+    const { pin } = req.body;
+    const summary = await Summary.findOne({ _id: req.params.id, userId: req.user.id });
+    if (!summary) return res.status(404).json({ error: 'Summary not found' });
+    summary.pinned = !!pin;
+    await summary.save();
+    res.json({ pinned: summary.pinned });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update pin status' });
+  }
+});
+
 export default router;
