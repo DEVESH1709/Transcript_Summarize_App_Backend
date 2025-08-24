@@ -6,6 +6,7 @@ import summaryRouter from './routes/summarize.js';
 import emailRouter from './routes/email.js';
 import authRouter from './routes/auth.js';
 import analyticsRouter from './routes/analytics.js';
+import shareRouter from './routes/share.js';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use('/api/summarize', summaryRouter);
 app.use('/api/email', emailRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/analytics', analyticsRouter);
+app.use('/api/share', shareRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
