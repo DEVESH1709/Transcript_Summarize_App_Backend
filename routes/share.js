@@ -1,4 +1,6 @@
-import Summary from "../models/Summary";
+import Summary from "../models/Summary.js";
+import { Router } from "express";
+const router = Router();
 
 router.get('/share/:shareId',async (req,res)=>{
     try{
@@ -21,7 +23,7 @@ router.post("/share/:shareId/comment",async(req,res)=>{
     try{
         const {name,text} = req.body;
         if(!text) return res.status(400).json({error :"Comment text required"});
-        const summary = await Summary.findOne({sharId :req.params.shareId});
+        const summary = await Summary.findOne({shareId :req.params.shareId});
         if(!summary) return res.status(404).json({error:"Summary not found"});
 
         summary.comments.push({name,text});
